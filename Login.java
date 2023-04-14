@@ -89,8 +89,9 @@ public class Login extends JFrame implements ActionListener {
                 
                 if(r.next())
                 {
+                    String meter =r.getString("meter_no");
                     setVisible(false);
-                    new Project();
+                    new Project(choice,meter);
                 }
                 else
                 {
