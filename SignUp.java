@@ -2,6 +2,7 @@ package electricity.billing.system;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.*;
 
 public class SignUp extends JFrame implements ActionListener {
     JButton create,back;
@@ -28,6 +29,7 @@ public class SignUp extends JFrame implements ActionListener {
         As.setBounds(200,20,100,20);
         As.add("Admin");
         As.add("Customer");
+        //As.addFocusListener(l);
         add(As);
         
         JLabel Meter=new JLabel("Meter Number");
@@ -54,6 +56,31 @@ public class SignUp extends JFrame implements ActionListener {
         name.setBounds(200,160,100,20);
         add(name);
         
+        meter.addFocusListener(new FocusListener(){
+        
+            public void focusGained(FocusEvent e)
+            {
+                
+            }
+            public void focusLost(FocusEvent d)
+            {
+                try
+                {
+                    connect c= new connect();
+                    ResultSet rs =c.s.executeQuery("select* from login where meter_no='"+meter.getText()+"'");
+                    while(rs.next())
+                    {
+                        name.setText(rs.getString("name"));
+                    }
+                }catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+    });
+        
+        
+        
         JLabel Password =new JLabel("Password");
         Password.setBounds(50,200,100,20);
         add(Password);
@@ -61,6 +88,23 @@ public class SignUp extends JFrame implements ActionListener {
         password =new JTextField();
         password.setBounds(200,200,100,20);
         add(password);
+        
+        As.addItemListener(new ItemListener(){
+        public void itemStateChanged(ItemEvent a)
+        {
+            String user =As.getSelectedItem();
+            if(user.equals("Customer"))
+            {
+                Meter.setVisible(true);
+                meter.setVisible(true);
+            }
+            else
+            {
+                Meter.setVisible(false);
+                meter.setVisible(false);
+            }
+        }
+    });
         
         create=new JButton("Create");
         create.setBounds(80, 240, 100, 20);
@@ -89,7 +133,15 @@ public class SignUp extends JFrame implements ActionListener {
             
             try{
                 connect c=new connect();
-                String query ="insert into login values('"+e1+"','"+b1+"','"+c1+"','"+d1+"','"+a1+"')";
+                String query =null;
+                if(a1.equals("Admin"))
+                {
+                    query="insert into login values('"+e1+"','"+b1+"','"+c1+"','"+d1+"','"+a1+"')";
+                }
+                else
+                {
+                    query = "update login set username = '"+b1+"', name = '"+c1+"', password = '"+d1+"', user = '"+a1+"' where meter_no = '"+meter.getText()+"'";
+                }
                 
                 c.s.executeUpdate(query);
                 JOptionPane.showMessageDialog(null,"Account created Succesfully" );
@@ -104,6 +156,7 @@ public class SignUp extends JFrame implements ActionListener {
             setVisible(false);
             new Login();       
         }
+       
     }
     public static void main (String[] args)
     {
