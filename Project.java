@@ -26,14 +26,6 @@ public class Project extends JFrame implements ActionListener{
         cust.addActionListener(this);
         main.add(cust);
         
-        //JMenuItem custDetail =new JMenuItem("Customer Details");
-        //custDetail.addActionListener(this);
-        //main.add(custDetail);
-        
-        //JMenuItem deposit =new JMenuItem("Deposit Details");
-        //deposit.addActionListener(this);
-        //main.add(deposit);
-        
         JMenuItem calbill =new JMenuItem("Calculate Bill");
         calbill.addActionListener(this);
         main.add(calbill);
@@ -41,9 +33,7 @@ public class Project extends JFrame implements ActionListener{
         JMenu info =new JMenu("Information");
         
         
-        //JMenuItem update =new JMenuItem("Update Information");
-        //info.add(update);
-        
+                
         JMenuItem view =new JMenuItem("View Information");
         view.addActionListener(this);
         info.add(view);
@@ -58,21 +48,6 @@ public class Project extends JFrame implements ActionListener{
         JMenuItem bill =new JMenuItem("Bill Details");
         bill.addActionListener(this);
         user.add(bill);
-        
-        //JMenu report =new JMenu("Report");
-        
-        
-        //JMenuItem generate =new JMenuItem("Generate Bill");
-        //report.add(generate);
-
-        //JMenu u =new JMenu("Utility");
-        //m.add(u);
-        
-        //JMenuItem notepad =new JMenuItem("Notepad");
-        //u.add(notepad);
-
-        //JMenuItem calculator =new JMenuItem("Calculator");
-        //u.add(calculator);
         
         JMenu exit=new JMenu("Exit");
         JMenuItem Exit =new JMenuItem("Close");
